@@ -61,11 +61,6 @@ public class POSTHook extends Endpoint {
             String commitHash = request.queryParams("sha");
             String optKey = request.queryParams("key");
 
-            // Save image data to designated space on the drive
-            File gifFile = Utils.generateGifFile(commitHash);
-            FileUtils.writeByteArrayToFile(gifFile, gifData);
-            String imageUrl = String.format("http://lolcommits.52inc.com/gifs/%s", gifFile.getName());
-
             // Emit commit on the rxevent bus
             RxBus.get().send(new LolCommit.Builder()
                     .message(message)
@@ -73,7 +68,7 @@ public class POSTHook extends Endpoint {
                     .author(authorName, authorEmail)
                     .commit(commitHash)
                     .opt(optKey)
-                    .image(imageUrl)
+                    .image(gifData)
                     .build());
 
         } catch (IOException e) {

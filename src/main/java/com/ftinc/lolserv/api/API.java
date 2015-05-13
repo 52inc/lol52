@@ -8,6 +8,9 @@ import com.ftinc.lolserv.util.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +22,7 @@ import static spark.Spark.*;
 /**
  * Created by r0adkll on 5/12/15.
  */
+@Singleton
 public class API {
 
     /********************************************************
@@ -27,17 +31,14 @@ public class API {
      *
      */
 
-    public static final int PORT = 8321;
-
     /**
      * The API interfaces
      */
-    public static final List<APIInterface> INTERFACES = new ArrayList<APIInterface>(){
-        {
-            add(new WebhookInterface());
-            add(new MainInterface());
-        }
-    };
+    @Inject
+    List<APIInterface> mInterfaces;
+
+    @Inject @Named("port")
+    int mPort;
 
     /********************************************************
      *
@@ -45,7 +46,8 @@ public class API {
      *
      */
 
-
+    @Inject
+    public API(){}
 
     /********************************************************
      *
@@ -56,16 +58,16 @@ public class API {
     /**
      * Initialize the API
      */
-    public static void init(){
+    public void init(){
 
         // Set the port
-        port(PORT);
+        port(mPort);
 
         // Setup the Filters
-        INTERFACES.stream().forEach(APIInterface::setupFilters);
+        mInterfaces.stream().forEach(APIInterface::setupFilters);
 
         // Setup the Endpoints
-        INTERFACES.stream().forEach(APIInterface::setupEndpoints);
+        mInterfaces.stream().forEach(APIInterface::setupEndpoints);
 
         // Setup the Time endpoint
         GETTime.create();

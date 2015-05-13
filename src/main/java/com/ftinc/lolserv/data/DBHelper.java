@@ -1,9 +1,11 @@
-package com.ftinc.lolserv.util;
+package com.ftinc.lolserv.data;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,27 +15,9 @@ import java.sql.SQLException;
  * Project: pharmaspec
  * Created by drew.heavner on 7/24/14.
  */
+@Singleton
 public class DBHelper {
     private final Logger LOG = LoggerFactory.getLogger(DBHelper.class);
-
-    /************************************************************
-     *
-     * Singleton Accessor
-     *
-     */
-
-    // Singleton instance
-    private static DBHelper _instance = null;
-
-    /**
-     * Singleton Accessor
-     *
-     * @return      the default instance of this class
-     */
-    public static DBHelper get(){
-        if(_instance == null) _instance = new DBHelper();
-        return _instance;
-    }
 
     /************************************************************
      *
@@ -59,9 +43,10 @@ public class DBHelper {
     private ComboPooledDataSource mDataSource;
 
     /**
-     * Hidden constructor
+     * Constructor
      */
-    private DBHelper(){}
+    @Inject
+    public DBHelper(){}
 
 
     /************************************************************
@@ -138,6 +123,28 @@ public class DBHelper {
     public Connection getConnection() throws SQLException {
         if(mDataSource != null){
             return mDataSource.getConnection();
+        }
+        return null;
+    }
+
+    /**
+     * Get a new connection from the Pooled DataSource
+     * for the defined sql server in use.
+     *
+     * @CAVEAT please explicitly call the .close() method on the Connection to
+     *         return it to the pool immediately for another incoming connection.
+     *         or call this in a try-with-resources block so it auto-closes
+     *
+     * @return                  a new connection to the database, or null.
+     * @throws SQLException     an error occurs attempting to establish a new connection
+     */
+    public Connection getSafeConnection(){
+        if(mDataSource != null){
+            try {
+                return mDataSource.getConnection();
+            } catch (SQLException e) {
+                LOG.error("Error getting database connection", e);
+            }
         }
         return null;
     }
