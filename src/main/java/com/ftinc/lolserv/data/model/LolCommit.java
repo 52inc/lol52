@@ -1,5 +1,6 @@
 package com.ftinc.lolserv.data.model;
 
+import com.ftinc.lolserv.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ public class LolCommit {
         commit.commitHash   = (String) map.get("hash");
         commit.optionalKey  = (String) map.get("optional_key");
         commit.imageUrl     = (String) map.get("image_url");
+        commit.timestamp    = (long) map.get("timestamp");
         return commit;
     }
 
@@ -52,6 +54,7 @@ public class LolCommit {
     public String optionalKey;
     public String imageUrl;
     public byte[] imageData;
+    public long timestamp;
 
     /***********************************************************************************************
      *
@@ -69,8 +72,8 @@ public class LolCommit {
 
         if(id == null){
 
-            String insert = "INSERT INTO commits (message,repo,author_name,author_email,hash,optional_key,image_url) " +
-                    "VALUES (?,?,?,?,?,?,?)";
+            String insert = "INSERT INTO commits (message,repo,author_name,author_email,hash,optional_key,image_url,timestamp) " +
+                    "VALUES (?,?,?,?,?,?,?,?)";
 
             // Prepare the statement
             try(PreparedStatement stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)){
@@ -83,6 +86,7 @@ public class LolCommit {
                 stmt.setString(5, commitHash);
                 stmt.setString(6, optionalKey);
                 stmt.setString(7, imageUrl);
+                stmt.setLong(8, Utils.time());
 
                 int result = stmt.executeUpdate();
                 if(result > 0){
@@ -101,7 +105,7 @@ public class LolCommit {
 
         }else{
 
-            String update = "UPDATE commits SET message=?,repo=?,author_name=?,author_email=?,hash=?,optional_key=?,image_url=? WHERE id=?";
+            String update = "UPDATE commits SET message=?,repo=?,author_name=?,author_email=?,hash=?,optional_key=?,image_url=?,timestamp=? WHERE id=?";
             try(PreparedStatement stmt = connection.prepareStatement(update)){
 
                 // Set values
@@ -112,7 +116,8 @@ public class LolCommit {
                 stmt.setString(5, commitHash);
                 stmt.setString(6, optionalKey);
                 stmt.setString(7, imageUrl);
-                stmt.setLong(8, id);
+                stmt.setLong(8, Utils.time());
+                stmt.setLong(9, id);
 
                 int result = stmt.executeUpdate();
                 if(result > 0){

@@ -38,6 +38,7 @@
 out/
 generated/
 public/
+build/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

@@ -2,11 +2,8 @@ package com.ftinc.lolserv.data.plugin;
 
 import com.ftinc.lolserv.data.model.LolCommit;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.Spark;
-import sun.nio.ch.IOUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +16,14 @@ import static spark.SparkBase.externalStaticFileLocation;
 public class ImageStoragePlugin implements Plugin {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    /**
+     * The base url for the image to be referenced from
+     */
     private String mBaseUrl;
 
+    /**
+     * Constructor
+     */
     public ImageStoragePlugin(String baseUrl){
         mBaseUrl = baseUrl;
     }
