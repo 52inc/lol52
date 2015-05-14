@@ -26,14 +26,4 @@ public class ApiModule {
         });
     }
 
-    @Provides @Singleton
-    Gson provideGson(){
-        return new Gson();
-    }
-
-    @Provides @Singleton
-    OkHttpClient provideOkHttpClient(){
-        return new OkHttpClient();
-    }
-
 }

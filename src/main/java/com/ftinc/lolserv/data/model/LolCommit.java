@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by r0adkll on 5/13/15.
  */
-public class LolCommit {
+public class LolCommit implements ModelMap<LolCommit> {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     /***********************************************************************************************
@@ -19,13 +19,15 @@ public class LolCommit {
      *
      */
 
+
+
     /**
      * Get LolCommit from a parsed database map
      *
      * @param map
      * @return
      */
-    public static LolCommit fromMap(Map<String, Object> map) {
+    public static LolCommit createFromMap(Map<String, Object> map) {
         LolCommit commit = new LolCommit();
         commit.id           = (Long) map.get("id");
         commit.message      = (String) map.get("message");
@@ -138,6 +140,26 @@ public class LolCommit {
     public String toString() {
         return String.format("Webhook [image: %s][repo: %s][message: %s][author: %s %s][commit: %s][opt: %s]",
                 imageData.length, repo, message, authorName, authorEmail, commitHash, optionalKey);
+    }
+
+    /**
+     * Get LolCommit from a parsed database map
+     *
+     * @param map
+     * @return
+     */
+    @Override
+    public LolCommit fromMap(Map<String, Object> map) {
+        id           = (Long) map.get("id");
+        message      = (String) map.get("message");
+        repo         = (String) map.get("repo");
+        authorName   = (String) map.get("author_name");
+        authorEmail  = (String) map.get("author_email");
+        commitHash   = (String) map.get("hash");
+        optionalKey  = (String) map.get("optional_key");
+        imageUrl     = (String) map.get("image_url");
+        timestamp    = (long) map.get("timestamp");
+        return this;
     }
 
     /***********************************************************************************************

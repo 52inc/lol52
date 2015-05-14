@@ -10,27 +10,62 @@ import javax.inject.Singleton;
  */
 public class App{
 
-    @Singleton
-    @Component(modules = {
-            AppModule.class,
-            ApiModule.class,
-            DataModule.class
-    })
-    public interface AppComponent{
-        AppService service();
+    /***********************************************************************************************
+     *
+     * Singleton
+     *
+     */
+
+    private static App _instance;
+    public static App get(){
+        if(_instance == null) _instance = new App();
+        return _instance;
     }
 
-    /**
-     * Run the application
-     * @param args
+    /***********************************************************************************************
+     *
+     * Variables
+     *
      */
-    public static void main(String[] args){
-        DaggerApp_AppComponent.builder()
+
+    private AppComponent mComponent;
+
+    /**
+     * Constructor
+     */
+    public App(){
+        mComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule())
                 .apiModule(new ApiModule())
                 .dataModule(new DataModule())
-                .build()
-                .service()
-                .run();
+                .build();
+
+        mComponent.service().run();
+    }
+
+    /***********************************************************************************************
+     *
+     * Methods
+     *
+     */
+
+    public AppComponent component(){
+        return mComponent;
+    }
+
+
+
+
+    /***********************************************************************************************
+     *
+     * Main
+     *
+     */
+
+    /**
+     * Run the application
+     */
+    public static void main(String[] args){
+        App.get();
     }
 }

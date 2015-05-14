@@ -148,4 +148,116 @@ public class Utils {
         return new String(Hex.encodeHex(shaDig));
     }
 
+    /**
+     * Clamp Integer values to a given range
+     *
+     * @param value     the value to clamp
+     * @param min       the minimum value
+     * @param max       the maximum value
+     * @return          the clamped value
+     */
+    public static int clamp(int value, int min, int max){
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Clamp Float values to a given range
+     *
+     * @param value     the value to clamp
+     * @param min       the minimum value
+     * @param max       the maximum value
+     * @return          the clamped value
+     */
+    public static float clamp(float value, float min, float max){
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Clamp Long values to a given range
+     *
+     * @param value     the value to clamp
+     * @param min       the minimum value
+     * @param max       the maximum value
+     * @return          the clamped value
+     */
+    public static long clamp(long value, long min, long max){
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Clamp Double values to a given range
+     *
+     * @param value     the value to clamp
+     * @param min       the minimum value
+     * @param max       the maximum value
+     * @return          the clamped value
+     */
+    public static double clamp(double value, double min, double max){
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Parse a float from a String in a safe manner.
+     *
+     * @param val           the string to parse
+     * @param defVal        the default value to return if parsing fails
+     * @return              the parsed float, or default value
+     */
+    public static Float parseFloat(String val, Float defVal){
+        if(isEmpty(val)) return defVal;
+        try{
+            return Float.parseFloat(val);
+        }catch (NumberFormatException e){
+            return defVal;
+        }
+    }
+
+    /**
+     * Parse a int from a String in a safe manner.
+     *
+     * @param val           the string to parse
+     * @param defValue      the default value to return if parsing fails
+     * @return              the parsed int, or default value
+     */
+    public static Integer parseInt(String val, Integer defValue){
+        if(isEmpty(val)) return defValue;
+        try{
+            return Integer.parseInt(val);
+        }catch (NumberFormatException e){
+            return defValue;
+        }
+    }
+
+    /**
+     * Parse a long from a String in a safe manner.
+     *
+     * @param val           the string to parse
+     * @param defValue      the default value to return if parsing fails
+     * @return              the parsed long, or default value
+     */
+    public static Long parseLong(String val, Long defValue){
+        if(isEmpty(val)) return defValue;
+        try{
+            return Long.parseLong(val);
+        }catch (NumberFormatException e){
+            return defValue;
+        }
+    }
+
+    /**
+     * Parse a double from a String in a safe manner
+     *
+     * @param val           the string to parse
+     * @param defValue      the default value to return in parsing fails
+     * @return              the parsed double, or default value
+     */
+    public static Double parseDouble(String val, Double defValue){
+        if(isEmpty(val)) return defValue;
+        try{
+            return Double.parseDouble(val);
+        }catch(NumberFormatException e){
+            return defValue;
+        }
+    }
+
 }

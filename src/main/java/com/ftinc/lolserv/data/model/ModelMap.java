@@ -18,12 +18,5 @@ public interface ModelMap<T> {
      */
     T fromMap(Map<String, Object> map);
 
-    /**
-     * Get the models db identfier
-     *
-     * @return
-     */
-    Long getId(T object);
-
 
 }
