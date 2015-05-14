@@ -43,6 +43,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.2.+'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.+'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.+'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.4.0'
 
     compile 'io.reactivex:rxjava:1.0.10'
     compile 'mysql:mysql-connector-java:5.1.35'
