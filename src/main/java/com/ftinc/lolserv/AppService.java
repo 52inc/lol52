@@ -37,10 +37,6 @@ public class AppService {
      */
     public void run(){
 
-        if(BuildConfig.ENVIRONMENT == BuildConfig.SERVER) {
-            PropertyConfigurator.configure("log4j.properties");
-        }
-
         // Print banner
         try {
             String banner = FigletFont.convertOneLine("lol52");

@@ -1,5 +1,6 @@
 package com.ftinc.lolserv;
 
+import com.ftinc.lolserv.data.Config;
 import com.ftinc.lolserv.data.plugin.DatabasePlugin;
 import com.ftinc.lolserv.data.plugin.ImageStoragePlugin;
 import com.ftinc.lolserv.data.plugin.Plugin;
@@ -22,16 +23,31 @@ import java.util.List;
 @Module
 public class AppModule {
 
+    private Config mConfig;
+
+    /**
+     * Constructor
+     * @param cfg
+     */
+    public AppModule(Config cfg){
+        mConfig = cfg;
+    }
+
+    @Provides @Singleton
+    Config provideConfiguration(){
+        return mConfig;
+    }
+
     @Provides @Singleton
     @Named("port")
     int provideApiPort(){
-        return 8321;
+        return mConfig.server.port;
     }
 
     @Provides @Singleton
     @Named("image_base_url")
     String provideImageBaseUrl(){
-        return "http://r0adkll.com:8321/images/";
+        return mConfig.server.baseUrl.concat("/images");
     }
 
     @Provides @Singleton

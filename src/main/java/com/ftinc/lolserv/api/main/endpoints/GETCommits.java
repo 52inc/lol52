@@ -26,9 +26,6 @@ import java.util.List;
  */
 public class GETCommits extends Endpoint {
 
-    @Inject
-    DB mDb;
-
     /**
      * Creator
      * @param api
@@ -44,11 +41,13 @@ public class GETCommits extends Endpoint {
      */
     public GETCommits(APIInterface api, String path) {
         super(api, GET, path);
-        App.get().component().inject(this);
     }
 
     @Override
     public Object handleRequest(Request request, Response response) {
+        Provider<Connection> mDb = App.get()
+                .component()
+                .getConnectionFactory();
 
         /*
          * Query params
@@ -62,7 +61,7 @@ public class GETCommits extends Endpoint {
         Long start = Utils.parseLong(_start, null);
         Long end = Utils.parseLong(_end, null);
 
-        try(Connection connection = mDb.getConnection()){
+        try(Connection connection = mDb.get()){
 
             // Build Query
             Select.Builder<LolCommit> builder =

@@ -13,9 +13,27 @@ public class Config {
     public Slack slack;
     public List<String> plugins;
 
+    @Override
+    public String toString() {
+        return String.format(
+                "\nConfig {\n" +
+                    "\t%s,\n" +
+                    "\t%s,\n" +
+                    "\t%s,\n" +
+                    "\t%s,\n" +
+                    "\t%s,\n}",
+                server, database, storage, slack, plugins);
+    }
+
     public static class Server{
         public int port;
         public String name;
+        public String baseUrl;
+
+        @Override
+        public String toString() {
+            return String.format("Server [%s:%d - %s]", name, port, baseUrl);
+        }
     }
 
     public static class Database{
@@ -23,6 +41,11 @@ public class Config {
         public String address;
         public String username;
         public String password;
+
+        @Override
+        public String toString() {
+            return String.format("Database [%s, %s - %s, %s]", name, address, username, password);
+        }
     }
 
     public static class Storage{
@@ -33,8 +56,18 @@ public class Config {
         public SFTP sftp;
         public Imgur imgur;
 
+        @Override
+        public String toString() {
+            return String.format("Storage [%s, %s, %s, %s, %s]", local, s3, ftp, sftp, imgur);
+        }
+
         public static class Local{
             public String path;
+
+            @Override
+            public String toString() {
+                return String.format("Local [%s]", path);
+            }
         }
 
         public static class S3{
@@ -65,6 +98,11 @@ public class Config {
 
     public static class Slack {
         public String url;
+
+        @Override
+        public String toString() {
+            return String.format("Slack [%s]", url);
+        }
     }
 
 

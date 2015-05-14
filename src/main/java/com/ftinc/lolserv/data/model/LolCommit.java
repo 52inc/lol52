@@ -158,7 +158,7 @@ public class LolCommit implements ModelMap<LolCommit> {
         commitHash   = (String) map.get("hash");
         optionalKey  = (String) map.get("optional_key");
         imageUrl     = (String) map.get("image_url");
-        timestamp    = (long) map.get("timestamp");
+        timestamp    = (int) map.get("timestamp");
         return this;
     }
 

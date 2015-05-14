@@ -1,6 +1,7 @@
 server:
   port: 8321
   name: 52inc lolcommits
+  baseUrl: http://r0adkll.com:8321/public
 
 database:
   name: lol52
@@ -18,12 +19,12 @@ storage:
     host: http://r0adkll.com
     port: 2020
     user: r0adkll
-    pass: *********
+    pass: spacebacon
   sftp:
     host: http://r0adkll.com
     port: 22
     user: r0adkll
-    pass: *********
+    pass: spacebacon
   imgur:
     apitoken: a3skjdpfoijvpdoiujfp@#$&jpoiuPODIUFPOS234fsiufsoi5foPIJjopFDSOJ
 
@@ -31,8 +32,8 @@ slack:
   url: https://hooks.slack.com/services/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
 
 plugins:
+  - storage-local
   - database
-  - imagestorage
   - slack
 
 
