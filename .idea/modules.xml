@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/lol52.iml" filepath="$PROJECT_DIR$/lol52.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lol52-server.iml" filepath="$PROJECT_DIR$/lol52-server.iml" />
     </modules>
   </component>
 </project>

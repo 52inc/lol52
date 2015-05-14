@@ -1,0 +1,46 @@
+{
+  "server":{
+    "name": "lol52",
+    "port": 8321
+  },
+  "database":{
+    "name": "lol52",
+    "address": "localhost",
+    "username": "admin",
+    "password": "spacebacon"
+  },
+  "storage":{
+    "local":{
+      "path": "images/"
+    },
+    "s3":{
+      "meta": "something",
+      "meta2": "somethingElse"
+    },
+    "ftp":{
+      "host": "http://r0adkll.com",
+      "port": 2020,
+      "user": "r0adkll",
+      "password": "********"
+    },
+    "sftp":{
+      "host": "http://r0adkll.com",
+      "port": 2020,
+      "user": "r0adkll",
+      "password": "********"
+    },
+    "imgur":{
+      "apitoken": "jpoiuPODIUFPOS234fsiufsoi5foPIJjopFDSOJjpoiuPODIUFPOS234fsiufso"
+    }
+  },
+  "slack":{
+    "url": "https://hooks.slack.com/services/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"
+  },
+  "plugins":[
+    "imagestorage-local",
+    "imagestorage-s3",
+    "database",
+    "slack"
+  ]
+
+}

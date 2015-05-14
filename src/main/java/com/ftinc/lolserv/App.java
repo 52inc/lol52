@@ -2,8 +2,6 @@ package com.ftinc.lolserv;
 
 import com.ftinc.lolserv.api.ApiModule;
 import com.ftinc.lolserv.data.DataModule;
-import dagger.Component;
-import javax.inject.Singleton;
 
 /**
  * Created by r0adkll on 5/12/15.
@@ -68,4 +66,5 @@ public class App{
     public static void main(String[] args){
         App.get();
     }
+
 }
