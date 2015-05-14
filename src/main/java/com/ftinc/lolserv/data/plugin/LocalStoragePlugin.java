@@ -39,7 +39,9 @@ public class LocalStoragePlugin implements Plugin {
             LOG.info("Image data written to: {}", imageFile.getAbsolutePath());
 
             // Now we need to set the image url on the commit
-            commit.imageUrl = mConfig.server.baseUrl.concat(imageFile.getName());
+            String base = mConfig.server.baseUrl;
+            String path = mConfig.storage.local.path;
+            commit.imageUrl = base.concat(path).concat(imageFile.getName());
         } catch (IOException e) {
             LOG.error("Error writing lolcommit image to disk", e);
         }
