@@ -11,13 +11,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
+ * The database helper class that provides connections to the underlying database that
+ * powers this applications storage layer using JDBC
  *
- * Project: pharmaspec
- * Created by drew.heavner on 7/24/14.
  */
 @Singleton
-public class DBHelper {
-    private final Logger LOG = LoggerFactory.getLogger(DBHelper.class);
+public class DB {
+    private final Logger LOG = LoggerFactory.getLogger(DB.class);
 
     /************************************************************
      *
@@ -46,7 +46,7 @@ public class DBHelper {
      * Constructor
      */
     @Inject
-    public DBHelper(){}
+    public DB(){}
 
 
     /************************************************************

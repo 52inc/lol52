@@ -3,7 +3,6 @@ package com.ftinc.lolserv.data;
 import dagger.Module;
 import dagger.Provides;
 
-import javax.inject.Provider;
 import java.sql.Connection;
 
 /**
@@ -13,7 +12,7 @@ import java.sql.Connection;
 public class DataModule {
 
     @Provides
-    Connection provideDBConnectionProvider(DBHelper db){
+    Connection provideDBConnectionProvider(DB db){
         return db.getSafeConnection();
     }
 

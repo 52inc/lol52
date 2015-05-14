@@ -5,7 +5,10 @@ import com.ftinc.lolserv.data.plugin.Plugin;
 import com.ftinc.lolserv.util.RxBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rx.Observable;
 import rx.Observer;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -58,7 +61,11 @@ public class Nexus implements Observer<Object>{
      * @param commit        the commit to notify the plugins with
      */
     private void applyPlugins(LolCommit commit){
-        mPlugins.stream().forEach(plugin -> plugin.onLolCommit(commit));
+        Observable.from(mPlugins)
+                .subscribeOn(Schedulers.computation())
+                .subscribe(plugin -> {
+                    plugin.onLolCommit(commit);
+                });
     }
 
     /***********************************************************************************************

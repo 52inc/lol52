@@ -2,7 +2,7 @@ package com.ftinc.lolserv;
 
 import com.ftinc.lolserv.api.API;
 import com.ftinc.lolserv.data.Nexus;
-import com.ftinc.lolserv.data.DBHelper;
+import com.ftinc.lolserv.data.DB;
 import com.github.lalyos.jfiglet.FigletFont;
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class AppService {
     API mApi;
 
     @Inject
-    DBHelper mDb;
+    DB mDb;
 
     /**
      * Constructor
@@ -37,7 +37,9 @@ public class AppService {
      */
     public void run(){
 
-        PropertyConfigurator.configure("log4j.properties");
+        if(BuildConfig.ENVIRONMENT == BuildConfig.SERVER) {
+            PropertyConfigurator.configure("log4j.properties");
+        }
 
         // Print banner
         try {
