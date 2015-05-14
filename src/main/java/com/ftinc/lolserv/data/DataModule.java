@@ -13,8 +13,8 @@ import java.sql.Connection;
 public class DataModule {
 
     @Provides
-    Provider<Connection> provideDBConnectionProvider(DBHelper db){
-        return () -> db.getSafeConnection();
+    Connection provideDBConnectionProvider(DBHelper db){
+        return db.getSafeConnection();
     }
 
 }

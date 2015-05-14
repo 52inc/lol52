@@ -3,6 +3,7 @@
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
+*.log
 
 ## Directory-based project format:
 #.idea/
@@ -36,6 +37,7 @@
 # IntelliJ
 out/
 generated/
+public/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

@@ -89,8 +89,10 @@ public class LolCommit {
 
                     // Get generated keys
                     try(ResultSet keys = stmt.getGeneratedKeys()){
-                        id = keys.getLong(0);
-                        LOG.info("Lolcommit[{}] was saved!", id);
+                        if(keys.next()) {
+                            id = keys.getLong(1);
+                            LOG.info("Lolcommit[{}] was saved!", id);
+                        }
                     }
 
                 }

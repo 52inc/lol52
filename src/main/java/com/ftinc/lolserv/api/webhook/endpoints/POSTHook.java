@@ -62,14 +62,18 @@ public class POSTHook extends Endpoint {
             String optKey = request.queryParams("key");
 
             // Emit commit on the rxevent bus
-            RxBus.get().send(new LolCommit.Builder()
+            LolCommit commit = new LolCommit.Builder()
                     .message(message)
                     .repo(repo)
                     .author(authorName, authorEmail)
                     .commit(commitHash)
                     .opt(optKey)
                     .image(gifData)
-                    .build());
+                    .build();
+
+            LOG.info("LolCommit received: {}", commit.toString());
+
+            RxBus.get().send(commit);
 
         } catch (IOException e) {
             halt(500, API.failure("Error getting file", "Error uploading file"));

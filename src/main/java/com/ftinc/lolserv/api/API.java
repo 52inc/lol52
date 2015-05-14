@@ -3,14 +3,19 @@ package com.ftinc.lolserv.api;
 import com.ftinc.lolserv.api.main.MainInterface;
 import com.ftinc.lolserv.api.model.GETTime;
 import com.ftinc.lolserv.api.webhook.WebhookInterface;
+import com.ftinc.lolserv.data.plugin.ImageStoragePlugin;
 import com.ftinc.lolserv.util.Pair;
 import com.ftinc.lolserv.util.Utils;
+import com.sun.javafx.iio.ImageStorage;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +29,7 @@ import static spark.Spark.*;
  */
 @Singleton
 public class API {
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     /********************************************************
      *
@@ -62,6 +68,9 @@ public class API {
 
         // Set the port
         port(mPort);
+
+        // Setup static files
+        ImageStoragePlugin.enableStaticFileLocation();
 
         // Setup the Filters
         mInterfaces.stream().forEach(APIInterface::setupFilters);
