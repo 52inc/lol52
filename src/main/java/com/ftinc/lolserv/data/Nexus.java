@@ -61,11 +61,13 @@ public class Nexus implements Observer<Object>{
      * @param commit        the commit to notify the plugins with
      */
     private void applyPlugins(LolCommit commit){
+
         Observable.from(mPlugins)
                 .subscribeOn(Schedulers.computation())
                 .subscribe(plugin -> {
                     plugin.onLolCommit(commit);
                 });
+
     }
 
     /***********************************************************************************************
