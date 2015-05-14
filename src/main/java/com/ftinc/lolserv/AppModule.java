@@ -31,7 +31,7 @@ public class AppModule {
     @Provides @Singleton
     @Named("image_base_url")
     String provideImageBaseUrl(){
-        return "http://localhost:8321/images/";
+        return "http://r0adkll.com:8321/images/";
     }
 
     @Provides @Singleton
