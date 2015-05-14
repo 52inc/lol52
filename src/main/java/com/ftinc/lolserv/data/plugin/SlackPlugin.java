@@ -1,5 +1,6 @@
 package com.ftinc.lolserv.data.plugin;
 
+import com.ftinc.lolserv.data.Config;
 import com.ftinc.lolserv.data.model.LolCommit;
 import com.ftinc.lolserv.data.model.SlackPayload;
 import com.google.gson.Gson;
@@ -21,8 +22,6 @@ public class SlackPlugin implements Plugin {
      *
      */
 
-    // TODO: Make this url source from an external server configuration
-    private static final String SLACK_URL = "https://hooks.slack.com/services/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";
     private static final MediaType JSON = MediaType.parse("application/json");
 
     /***********************************************************************************************
@@ -31,6 +30,7 @@ public class SlackPlugin implements Plugin {
      *
      */
 
+    private Config mConfig;
     private Gson mGson;
     private OkHttpClient mClient;
 
@@ -39,7 +39,10 @@ public class SlackPlugin implements Plugin {
      *
      * @param client
      */
-    public SlackPlugin(OkHttpClient client, Gson gson){
+    public SlackPlugin(Config config,
+                       OkHttpClient client,
+                       Gson gson){
+        mConfig = config;
         mClient = client;
         mGson = gson;
     }
@@ -61,7 +64,7 @@ public class SlackPlugin implements Plugin {
 
         // Prepare request
         Request request = new Request.Builder()
-                .url(SLACK_URL)
+                .url(mConfig.slack.url)
                 .post(RequestBody.create(JSON, body))
                 .build();
 

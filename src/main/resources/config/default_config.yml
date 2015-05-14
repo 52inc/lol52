@@ -12,19 +12,24 @@ database:
 storage:
   local:
     path: images/
+
   s3:
-    meta: something
-    meta2: somethingMore
+    access: something
+    secret: somethingMore
+    bucket: someBucket
+
   ftp:
     host: http://r0adkll.com
     port: 2020
     user: r0adkll
     pass: spacebacon
+
   sftp:
     host: http://r0adkll.com
     port: 22
     user: r0adkll
     pass: spacebacon
+
   imgur:
     apitoken: a3skjdpfoijvpdoiujfp@#$&jpoiuPODIUFPOS234fsiufsoi5foPIJjopFDSOJ
 

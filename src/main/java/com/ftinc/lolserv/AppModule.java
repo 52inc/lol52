@@ -1,10 +1,7 @@
 package com.ftinc.lolserv;
 
 import com.ftinc.lolserv.data.Config;
-import com.ftinc.lolserv.data.plugin.DatabasePlugin;
-import com.ftinc.lolserv.data.plugin.ImageStoragePlugin;
 import com.ftinc.lolserv.data.plugin.Plugin;
-import com.ftinc.lolserv.data.plugin.SlackPlugin;
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import dagger.Module;
@@ -14,7 +11,6 @@ import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,14 +49,9 @@ public class AppModule {
     @Provides @Singleton
     List<Plugin> providePlugins(OkHttpClient client,
                                 Gson gson,
-                                Provider<Connection> dbProvider,
-                                @Named("image_base_url") String baseUrl){
+                                Provider<Connection> dbProvider){
 
-        return Arrays.asList(new Plugin[]{
-                new ImageStoragePlugin(baseUrl),
-                new SlackPlugin(client, gson),
-                new DatabasePlugin(dbProvider)
-        });
+        return mConfig.generatePlugins(client, gson, dbProvider);
     }
 
 }

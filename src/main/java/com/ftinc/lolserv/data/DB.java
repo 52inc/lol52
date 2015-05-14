@@ -28,11 +28,6 @@ public class DB {
     private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
     private static final String SQL_CONNECTION_URL = "jdbc:mysql://%s/%s?autoReconnect=true";
 
-    private static final String ADDRESS = "localhost";
-    private static final String DATABASE_NAME = "lol52";
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "spacebacon";
-
     /************************************************************
      *
      * Variables
@@ -41,6 +36,9 @@ public class DB {
 
     /* This is the pooled data source from which all connections are aquired */
     private ComboPooledDataSource mDataSource;
+
+    @Inject
+    Config mConfig;
 
     /**
      * Constructor
@@ -55,8 +53,8 @@ public class DB {
      *
      */
 
-    private String getSqlConnectionUrl(){
-        return String.format(SQL_CONNECTION_URL, ADDRESS, DATABASE_NAME);
+    private String getSqlConnectionUrl(Config cfg){
+        return String.format(SQL_CONNECTION_URL, cfg.database.address, cfg.database.name);
     }
 
 
@@ -77,9 +75,9 @@ public class DB {
         mDataSource = new ComboPooledDataSource();
         try {
             mDataSource.setDriverClass(DRIVER_CLASS);
-            mDataSource.setJdbcUrl(getSqlConnectionUrl());
-            mDataSource.setUser(USERNAME);
-            mDataSource.setPassword(PASSWORD);
+            mDataSource.setJdbcUrl(getSqlConnectionUrl(mConfig));
+            mDataSource.setUser(mConfig.database.username);
+            mDataSource.setPassword(mConfig.database.password);
 
             mDataSource.setAcquireIncrement(5);
             mDataSource.setInitialPoolSize(10);
