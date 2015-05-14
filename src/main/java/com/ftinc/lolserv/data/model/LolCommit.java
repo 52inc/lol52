@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by r0adkll on 5/13/15.
  */
 public class LolCommit implements ModelMap<LolCommit> {
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(LolCommit.class);
 
     /***********************************************************************************************
      *
