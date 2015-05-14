@@ -4,6 +4,7 @@ import com.ftinc.lolserv.App;
 import com.ftinc.lolserv.api.API;
 import com.ftinc.lolserv.api.APIInterface;
 import com.ftinc.lolserv.api.model.Endpoint;
+import com.ftinc.lolserv.data.DB;
 import com.ftinc.lolserv.data.model.LolCommit;
 import com.ftinc.lolserv.util.Select;
 import com.ftinc.lolserv.util.Utils;
@@ -26,7 +27,7 @@ import java.util.List;
 public class GETCommits extends Endpoint {
 
     @Inject
-    Provider<Connection> mDb;
+    DB mDb;
 
     /**
      * Creator
@@ -61,7 +62,7 @@ public class GETCommits extends Endpoint {
         Long start = Utils.parseLong(_start, null);
         Long end = Utils.parseLong(_end, null);
 
-        try(Connection connection = mDb.get()){
+        try(Connection connection = mDb.getConnection()){
 
             // Build Query
             Select.Builder<LolCommit> builder =
