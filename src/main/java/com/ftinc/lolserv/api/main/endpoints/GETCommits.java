@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -56,10 +57,12 @@ public class GETCommits extends Endpoint {
          *
          */
 
+        String _age = request.queryParams("age");
         String _start = request.params(":start");
         String _end = request.params(":end");
         Long start = Utils.parseLong(_start, null);
         Long end = Utils.parseLong(_end, null);
+        Long age = Utils.parseLong(_age, null);
 
         try(Connection connection = mDb.get()){
 
@@ -71,6 +74,9 @@ public class GETCommits extends Endpoint {
             if(start != null && end != null){
                 builder.where("timestamp>?", start)
                         .and("timestamp<?", end);
+            }else if(age != null){
+                long diff = Utils.time() - age;
+                builder.where("timestamp > ?", diff);
             }
 
             builder.orderBy("timestamp ASC");

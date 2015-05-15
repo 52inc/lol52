@@ -9,4 +9,11 @@ This server will provide the following http routes:
  - **POST** `http://example.com/lolcommits/webhook`  
    This is the endpoint that you configure the lolcommits plugin `uploldz` to point to, and it will send a post reqeust of the associated media file + metadata. From here it is distributed via the `Nexus` class through the RxBus, reactive extensions event bus i.e.; [RxJava](https://github.com/reactivex/rxjava), where it is ran through all the plugins.
    
- - **GET** `http://example.com/
+ - **GET** `http://example.com/API/V1/commits`  
+   This returns a list of all the lolcommits on the server  
+   **Params:** `REST`
+   - `:start` - the starting timestamp in unix epoch seconds of commits to grab
+   - `:end` - the ending timestamp of commits to grab
+   
+   **Params:** `Query`
+   - `age` - The age, in seconds, of the commits to return
