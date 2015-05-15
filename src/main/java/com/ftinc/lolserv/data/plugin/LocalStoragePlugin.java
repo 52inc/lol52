@@ -56,7 +56,9 @@ public class LocalStoragePlugin implements Plugin {
     }
 
     public static File getImageDirectory(Config mConfig){
-        File imageDir = new File(getPublicDirectory().getAbsolutePath().concat(mConfig.storage.local.path));
+        String path = getPublicDirectory().getAbsolutePath().concat("/")
+                .concat(mConfig.storage.local.path);
+        File imageDir = new File(path);
         if(!imageDir.exists()) imageDir.mkdirs();
         return imageDir;
     }
