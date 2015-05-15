@@ -55,7 +55,7 @@ public class LolCommit implements ModelMap<LolCommit> {
     public String commitHash;
     public String optionalKey;
     public String imageUrl;
-    public byte[] imageData;
+    public transient byte[] imageData;
     public long timestamp;
 
     /***********************************************************************************************
