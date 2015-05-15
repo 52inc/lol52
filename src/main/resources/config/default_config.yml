@@ -1,7 +1,7 @@
 server:
   port: 8321
   name: 52inc lolcommits
-  baseUrl: http://r0adkll.com:8321/public
+  baseUrl: http://r0adkll.com:8321
 
 database:
   name: lol52
