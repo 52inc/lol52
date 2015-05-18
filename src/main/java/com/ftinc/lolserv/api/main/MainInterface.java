@@ -1,6 +1,7 @@
 package com.ftinc.lolserv.api.main;
 
 import com.ftinc.lolserv.api.APIInterface;
+import com.ftinc.lolserv.api.main.endpoints.GETCommitId;
 import com.ftinc.lolserv.api.main.endpoints.GETCommits;
 import com.ftinc.lolserv.api.model.APIDefinition;
 
@@ -23,8 +24,7 @@ public class MainInterface extends APIInterface{
 
         GETCommits.create(this, "/commits");
         GETCommits.create(this, "/commits/:start/:end");
-        // GETUsers.create(this, "/users");
-
+        GETCommitId.create(this, "/commits/:id");
 
     }
 

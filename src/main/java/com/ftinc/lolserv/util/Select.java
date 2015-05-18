@@ -2,6 +2,8 @@ package com.ftinc.lolserv.util;
 
 import com.ftinc.lolserv.data.model.ModelMap;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -21,7 +23,7 @@ import static com.ftinc.lolserv.util.Select.Query.Type.OR;
  * <p>Created by r0adkll on 5/14/15.</p>
  */
 public class Select {
-
+    private static final Logger LOG = LoggerFactory.getLogger(Select.class);
 
     private Connection conn;
 
@@ -128,6 +130,8 @@ public class Select {
         public List<T> fetch(){
             String sql = query.buildQuery();
 
+            LOG.info("Select: {}", sql);
+
             try(PreparedStatement stmt = query.conn.prepareStatement(sql)){
                 try(ResultSet result = stmt.executeQuery()){
 
@@ -150,6 +154,8 @@ public class Select {
 
         public T fetchSingle(){
             String sql = query.buildQuery();
+
+            LOG.info("Select: {}", sql);
 
             try(PreparedStatement stmt = query.conn.prepareStatement(sql)){
                 try(ResultSet result = stmt.executeQuery()){
@@ -177,6 +183,8 @@ public class Select {
                 public void call(Subscriber<? super List<T>> subscriber) {
 
                     String sql = query.buildQuery();
+
+                    LOG.info("Select: {}", sql);
 
                     try(PreparedStatement stmt = query.conn.prepareStatement(sql)){
                         try(ResultSet result = stmt.executeQuery()){
@@ -206,6 +214,8 @@ public class Select {
                 public void call(Subscriber<? super T> subscriber) {
                     String sql = query.buildQuery();
 
+                    LOG.info("Select: {}", sql);
+
                     try(PreparedStatement stmt = query.conn.prepareStatement(sql)){
                         try(ResultSet result = stmt.executeQuery()){
 
@@ -234,8 +244,8 @@ public class Select {
 
         public enum Type{
             NONE(""),
-            AND("AND"),
-            OR("OR");
+            AND("AND "),
+            OR("OR ");
 
             private final String value;
 
@@ -265,7 +275,7 @@ public class Select {
                 operation = operation.replaceFirst("\\?", arg);
             }
 
-            return String.format("%s %s ", type.val(), operation);
+            return String.format("%s%s ", type.val(), operation);
         }
 
         protected final String[] toStringArray(final Object[] array) {
