@@ -8,6 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.Filter;
+import spark.Request;
+import spark.Response;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -64,6 +67,8 @@ public class API {
         // Set the port
         port(mPort);
 
+        enableCORS("*", "*", "*");
+
         // Setup static files
         LocalStoragePlugin.enableStaticFileLocation();
 
@@ -81,6 +86,14 @@ public class API {
             response.body(failure("Invalid JSON formed", "Internal server error, please try again"));
         });
 
+    }
+
+    private static void enableCORS(final String origin, final String methods, final String headers) {
+        before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", origin);
+            response.header("Access-Control-Request-Method", methods);
+            response.header("Access-Control-Allow-Headers", headers);
+        });
     }
 
     /********************************************************
