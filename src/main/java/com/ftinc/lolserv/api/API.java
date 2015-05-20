@@ -67,10 +67,10 @@ public class API {
         // Set the port
         port(mPort);
 
-        enableCORS("*", "*", "*");
-
         // Setup static files
         LocalStoragePlugin.enableStaticFileLocation();
+
+        enableCORS("*", "*", "*");
 
         // Setup the Filters
         mInterfaces.stream().forEach(APIInterface::setupFilters);
